@@ -20,9 +20,7 @@ export default function UserForm({setUsers, users}) {
         })
         .then(response => response.json())
         .then(data => {
-            // const updatedUsers = [...users, data]
             setUsers([...users, data])
-            // setUsers(updatedUsers)
         })
     }
 
