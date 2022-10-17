@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 
-export default function UserForm({count, setCount}) {
+export default function UserForm({setUsers, users}) {
     const [name, setName] = useState("")
     const [age, setAge] = useState(0)
     const [sex, setSex] = useState("")
     const [image, setImage] = useState({})
-    const form = {
-        name,
-        age,
-        sex,
-        image
-    }
 
     function submitUser(e){
         e.preventDefault();
+        const newForm = new FormData();
+        newForm.append("name", name)
+        newForm.append("age", age)
+        newForm.append("sex", sex)
+        newForm.append("image", image)
         fetch('/users', {
             method: 'post',
-            headers:{'Content-Type': 'application/json'},
-            body: JSON.stringify(form)},
-            )
-        console.log(form)
-        setCount(count += 1)
-        console.log(count)
-
+            body: newForm,
+        })
+        .then(response => response.json())
+        .then(data => setUsers(...users, data))
     }
 
     return (
