@@ -6,6 +6,7 @@ export default function UserForm({setUsers, users}) {
     const [sex, setSex] = useState("")
     const [image, setImage] = useState({})
 
+
     function submitUser(e){
         e.preventDefault();
         const newForm = new FormData();
@@ -18,7 +19,11 @@ export default function UserForm({setUsers, users}) {
             body: newForm,
         })
         .then(response => response.json())
-        .then(data => setUsers(...users, data))
+        .then(data => {
+            // const updatedUsers = [...users, data]
+            setUsers([...users, data])
+            // setUsers(updatedUsers)
+        })
     }
 
     return (
